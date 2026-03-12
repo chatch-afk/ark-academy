@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARK Academy — Family Office Operating System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary:   #133B54;
+      --secondary: #386FA4;
+      --accent:    #A98A5E;
+      --white:     #FFFFFF;
+      --light:     #F4F4F0;
+      --accent-pale: #F7F3ED;
+      --text-dark: #1A1A1A;
+      --text-mid:  #444444;
+      --text-muted:#6B6B6B;
+      --radius:    8px;
+      --radius-lg: 16px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      color: var(--text-dark);
+      background: var(--white);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ─── Utilities ─────────────────────────────────────────── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+    .section-pad { padding: 96px 0; }
+    .section-pad-sm { padding: 72px 0; }
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .eyebrow--light { color: rgba(169,138,94,0.9); }
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      border: none;
+    }
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-accent { background: var(--accent); color: var(--white); }
+    .btn-outline-white {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.55);
+    }
+    .btn-outline-white:hover { border-color: var(--white); }
+    .btn-white { background: var(--white); color: var(--primary); }
+    .btn-primary { background: var(--primary); color: var(--white); }
+    .gold-check::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+      margin-right: 10px;
+    }
+    .tag-chip {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      background: rgba(169,138,94,0.15);
+      color: var(--accent);
+      margin: 4px 4px 4px 0;
+    }
+
+    /* ─── NAV ───────────────────────────────────────────────── */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--primary);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+    .nav-logo-main {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .nav-logo-sub {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { margin-left: 16px; }
+
+    /* ─── HERO ──────────────────────────────────────────────── */
+    #hero {
+      background: var(--primary);
+      padding: 160px 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -180px;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56,111,164,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -100px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(169,138,94,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+    }
+    .hero-eyebrow-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(169,138,94,0.12);
+      border: 1px solid rgba(169,138,94,0.3);
+      border-radius: 100px;
+      padding: 6px 16px;
+      margin-bottom: 32px;
+    }
+    .hero-eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .hero-eyebrow-text {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    #hero h1 {
+      font-size: clamp(40px, 6vw, 68px);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.08;
+      margin-bottom: 28px;
+      letter-spacing: -0.02em;
+    }
+    .hero-subhead {
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.72);
+      max-width: 620px;
+      margin-bottom: 44px;
+      line-height: 1.7;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 72px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 40px;
+    }
+    .hero-stat {
+      flex: 1;
+      padding-right: 40px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      margin-right: 40px;
+    }
+    .hero-stat:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+    .hero-stat-number {
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .hero-stat-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── PROBLEM ───────────────────────────────────────────── */
+    #problem { background: var(--white); }
+    .problem-header { max-width: 680px; margin-bottom: 56px; }
+    #problem h2 {
+      font-size: clamp(30px, 4vw, 46px);
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .problem-body {
+      font-size: 17px;
+      color: var(--text-mid);
+      line-height: 1.75;
+    }
+    .pull-quote {
+      margin: 48px 0;
+      padding: 32px 40px;
+      border-left: 4px solid var(--accent);
+      background: var(--light);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+    .pull-quote p {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--primary);
+      line-height: 1.55;
+      font-style: italic;
+    }
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+    .pain-card {
+      background: var(--light);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      border-top: 3px solid var(--accent);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .pain-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(19,59,84,0.1); }
+    .pain-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: rgba(169,138,94,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .pain-stat {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .pain-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .pain-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── TRANSFORMATION ────────────────────────────────────── */
+    #transformation {
+      background: var(--primary);
+      padding: 96px 0 0;
+    }
+    .transform-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .transform-header h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+    }
+    .transform-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .transform-col {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+    }
+    .transform-col--with {
+      background: rgba(56,111,164,0.18);
+      border-color: rgba(169,138,94,0.3);
+    }
+    .transform-col-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .transform-col-label--without { color: rgba(255,255,255,0.4); }
+    .transform-col-label--with { color: var(--accent); }
+    .transform-col-label-icon {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .transform-col-label-icon--without {
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.4);
+    }
+    .transform-col-label-icon--with {
+      background: rgba(169,138,94,0.2);
+      color: var(--accent);
+    }
+    .transform-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+    .transform-item--without { color: rgba(255,255,255,0.5); }
+    .transform-item--with { color: rgba(255,255,255,0.88); }
+    .transform-item-icon {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+      margin-top: 2px;
+    }
+    .transform-item-icon--without {
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.3);
+    }
+    .transform-item-icon--with {
+      background: rgba(169,138,94,0.2);
+      color: var(--accent);
+    }
+    .result-strip {
+      margin-top: 56px;
+      background: var(--accent);
+      padding: 28px 40px;
+      text-align: center;
+    }
+    .result-strip p {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+    .result-strip span { opacity: 0.7; margin: 0 12px; }
+
+    /* ─── THREE PILLARS ─────────────────────────────────────── */
+    #pillars { background: var(--light); }
+    .pillars-header { text-align: center; max-width: 640px; margin: 0 auto 64px; }
+    .pillars-header h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .pillars-header p {
+      font-size: 17px;
+      color: var(--text-mid);
+    }
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .pillar-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 40px 36px;
+      border-bottom: 3px solid transparent;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .pillar-card:hover {
+      border-bottom-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(19,59,84,0.1);
+    }
+    .pillar-number {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(169,138,94,0.1);
+      border: 1px solid rgba(169,138,94,0.25);
+      border-radius: 100px;
+      padding: 4px 12px;
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+    .pillar-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+    .pillar-desc {
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .pillar-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    /* ─── PLAYBOOKS ─────────────────────────────────────────── */
+    #playbooks { background: var(--white); }
+    .playbooks-header { max-width: 640px; margin-bottom: 56px; }
+    .playbooks-header h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .playbooks-header p { font-size: 17px; color: var(--text-mid); }
+    .playbooks-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .playbook-card {
+      border-left: 3px solid var(--accent);
+      padding: 24px 24px 24px 28px;
+      background: var(--light);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .playbook-card:hover { background: #ede8e0; transform: translateX(4px); }
+    .playbook-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .playbook-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .playbook-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── OUR PROMISE ───────────────────────────────────────── */
+    #promise {
+      background: var(--primary);
+    }
+    .promise-header { text-align: center; max-width: 640px; margin: 0 auto 64px; }
+    .promise-header h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .promise-header p { font-size: 17px; color: rgba(255,255,255,0.65); }
+    .promise-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 56px;
+    }
+    .promise-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      text-align: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .promise-card:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(169,138,94,0.35);
+    }
+    .promise-icon {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: rgba(169,138,94,0.15);
+      border: 1px solid rgba(169,138,94,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      margin: 0 auto 24px;
+    }
+    .promise-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+    .promise-desc {
+      font-size: 15px;
+      color: rgba(255,255,255,0.62);
+      line-height: 1.7;
+    }
+    .promise-footnote {
+      text-align: center;
+      padding: 32px 40px;
+      background: rgba(169,138,94,0.1);
+      border: 1px solid rgba(169,138,94,0.2);
+      border-radius: var(--radius-lg);
+      font-size: 17px;
+      font-style: italic;
+      color: rgba(255,255,255,0.75);
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* ─── PRICING ───────────────────────────────────────────── */
+    #pricing { background: var(--light); }
+    .pricing-header { text-align: center; max-width: 640px; margin: 0 auto 64px; }
+    .pricing-header h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .pricing-header p { font-size: 17px; color: var(--text-mid); }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+    .pricing-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      border: 2px solid transparent;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(19,59,84,0.1); }
+    .pricing-card--featured {
+      border-color: var(--accent);
+      position: relative;
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--accent);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .pricing-tier {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .pricing-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .pricing-price {
+      margin-bottom: 6px;
+    }
+    .pricing-price-main {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+    }
+    .pricing-price-period {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+    .pricing-setup {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--light);
+    }
+    .pricing-features { margin-bottom: 32px; }
+    .pricing-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-mid);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .pricing-feature-check {
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .pricing-cta { width: 100%; text-align: center; padding: 14px; border-radius: var(--radius); font-size: 15px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.15s; border: none; }
+    .pricing-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+    .pricing-cta--featured { background: var(--accent); color: var(--white); }
+    .pricing-cta--default { background: var(--light); color: var(--primary); border: 1.5px solid rgba(19,59,84,0.15); }
+    .pricing-note {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* ─── ABOUT ─────────────────────────────────────────────── */
+    #about { background: var(--accent-pale); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-left h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+    .about-body {
+      font-size: 16px;
+      color: var(--text-mid);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+    .about-values {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+    .about-value-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 100px;
+      background: rgba(169,138,94,0.12);
+      border: 1px solid rgba(169,138,94,0.25);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .about-stat-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      border-left: 3px solid var(--accent);
+    }
+    .about-stat-number {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .about-stat-label {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ─── CTA SECTION ───────────────────────────────────────── */
+    #cta-section { background: var(--secondary); }
+    .cta-header { text-align: center; max-width: 640px; margin: 0 auto 64px; }
+    .cta-header h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .cta-header p { font-size: 17px; color: rgba(255,255,255,0.72); }
+    .onboarding-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 56px;
+    }
+    .step-card {
+      text-align: center;
+      padding: 36px 24px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-lg);
+      transition: background 0.2s;
+    }
+    .step-card:hover { background: rgba(255,255,255,0.12); }
+    .step-number {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--white);
+      font-size: 18px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .step-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .step-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.62);
+      line-height: 1.6;
+    }
+    .cta-bottom { text-align: center; }
+    .cta-bottom p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 16px;
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    #footer {
+      background: #0D2A3C;
+      padding: 72px 0 0;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 64px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .footer-brand-sub {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .footer-brand-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.75;
+      max-width: 340px;
+    }
+    .footer-col-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .footer-links { display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-bottom {
+      padding: 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-tagline {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent);
+      font-style: italic;
+    }
+    .footer-copy {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ─── Responsive ────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .pain-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .onboarding-steps { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero-stats { flex-direction: column; gap: 28px; }
+      .hero-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 28px; margin-bottom: 0; padding-right: 0; margin-right: 0; }
+      .hero-stat:last-child { border-bottom: none; padding-bottom: 0; }
+      .transform-grid { grid-template-columns: 1fr; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .playbooks-grid { grid-template-columns: 1fr; }
+      .promise-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      .pain-grid { grid-template-columns: 1fr; }
+      .onboarding-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     NAV
+══════════════════════════════════════════════════════════ -->
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <span class="nav-logo-main">ARK Academy</span>
+        <span class="nav-logo-sub">Family Office Operating System</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#pillars">Pillars</a></li>
+        <li><a href="#playbooks">Playbooks</a></li>
+        <li><a href="#promise">Promise</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#about">About</a></li>
+        <li class="nav-cta"><a href="#cta-section" class="btn btn-accent">Apply Now</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-eyebrow-wrap">
+        <div class="hero-eyebrow-dot"></div>
+        <span class="hero-eyebrow-text">Family Office Operating System</span>
+      </div>
+      <h1>You Sit at the<br>Head of the Table.</h1>
+      <p class="hero-subhead">We guide entrepreneurs and their families on their journey from pain to purpose — building the systems, strategies, and clarity needed to protect what matters, find Peace in the process, and live with Purpose beyond the exit.</p>
+      <div class="hero-ctas">
+        <a href="#cta-section" class="btn btn-accent">Begin Your Journey</a>
+        <a href="#playbooks" class="btn btn-outline-white">Explore the System</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-number">3</div>
+          <div class="hero-stat-label">Core Pillars</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">9+</div>
+          <div class="hero-stat-label">Proven Playbooks</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">3 P's</div>
+          <div class="hero-stat-label">Protection · Peace · Purpose</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     PROBLEM
+══════════════════════════════════════════════════════════ -->
+<section id="problem" class="section-pad">
+  <div class="container">
+    <div class="problem-header">
+      <div class="eyebrow">The Challenge</div>
+      <h2>Most Entrepreneurs Are Running Alone.</h2>
+      <p class="problem-body">You have a CPA, an attorney, a financial advisor, and a wealth manager. Each one is excellent at their job. But none of them talk to each other — and none of them see the whole picture. You are left holding the pieces, trying to integrate a strategy that no single advisor was ever hired to build.</p>
+    </div>
+
+    <div class="pull-quote">
+      <p>"The cost of fragmented advice is not just financial. It is the weight of carrying every decision alone — without a system, without a guide, without a clear path forward."</p>
+    </div>
+
+    <p class="problem-body" style="max-width:680px;">The result is reactive decision-making, missed opportunities, and a growing gap between where you are and where you know you are meant to be. Protection is at risk. Peace is elusive. Purpose remains undefined. The system was never designed for you — until now.</p>
+
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-icon">⏱</div>
+        <div class="pain-stat">100+</div>
+        <div class="pain-title">Hours Reacting</div>
+        <div class="pain-desc">Entrepreneurs spend over 100 hours per year reacting to financial, legal, and operational fires instead of building toward their vision.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🔀</div>
+        <div class="pain-stat">Silos</div>
+        <div class="pain-title">Advisors in Silos</div>
+        <div class="pain-desc">Your CPA, attorney, and wealth manager each operate in isolation. No one is orchestrating the full strategy on your behalf.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">⚙️</div>
+        <div class="pain-stat">Zero</div>
+        <div class="pain-title">Integration Burden</div>
+        <div class="pain-desc">Without an operating system to connect your advisors, you absorb the integration burden — becoming the project manager of your own wealth.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🧭</div>
+        <div class="pain-stat">None</div>
+        <div class="pain-title">No Clear Path to Purpose</div>
+        <div class="pain-desc">Tactical execution without a strategic north star leaves entrepreneurs achieving success but missing meaning. Purpose demands a plan.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     TRANSFORMATION
+══════════════════════════════════════════════════════════ -->
+<section id="transformation">
+  <div class="container">
+    <div class="transform-header">
+      <div class="eyebrow eyebrow--light">The Transformation</div>
+      <h2>From Fragmented to Fully Integrated.</h2>
+    </div>
+    <div class="transform-grid">
+      <div class="transform-col">
+        <div class="transform-col-label transform-col-label--without">
+          <div class="transform-col-label-icon transform-col-label-icon--without">✕</div>
+          Without the System
+        </div>
+        <div class="transform-item transform-item--without">
+          <div class="transform-item-icon transform-item-icon--without">✕</div>
+          <span>Advisors operating in silos with no unified strategy</span>
+        </div>
+        <div class="transform-item transform-item--without">
+          <div class="transform-item-icon transform-item-icon--without">✕</div>
+          <span>Reacting to crises instead of executing a plan</span>
+        </div>
+        <div class="transform-item transform-item--without">
+          <div class="transform-item-icon transform-item-icon--without">✕</div>
+          <span>Wealth exposed to unnecessary tax, legal, and market risk</span>
+        </div>
+        <div class="transform-item transform-item--without">
+          <div class="transform-item-icon transform-item-icon--without">✕</div>
+          <span>Family legacy undefined and undocumented</span>
+        </div>
+        <div class="transform-item transform-item--without">
+          <div class="transform-item-icon transform-item-icon--without">✕</div>
+          <span>Exit planning delayed until it is too late to optimize</span>
+        </div>
+        <div class="transform-item transform-item--without">
+          <div class="transform-item-icon transform-item-icon--without">✕</div>
+          <span>Purpose deferred indefinitely in pursuit of more</span>
+        </div>
+      </div>
+      <div class="transform-col transform-col--with">
+        <div class="transform-col-label transform-col-label--with">
+          <div class="transform-col-label-icon transform-col-label-icon--with">✓</div>
+          With ARK Academy
+        </div>
+        <div class="transform-item transform-item--with">
+          <div class="transform-item-icon transform-item-icon--with">✓</div>
+          <span>A unified Family Office Operating System coordinating every advisor</span>
+        </div>
+        <div class="transform-item transform-item--with">
+          <div class="transform-item-icon transform-item-icon--with">✓</div>
+          <span>Proactive strategy execution guided by your Sherpa</span>
+        </div>
+        <div class="transform-item transform-item--with">
+          <div class="transform-item-icon transform-item-icon--with">✓</div>
+          <span>Protection built into every layer of your financial architecture</span>
+        </div>
+        <div class="transform-item transform-item--with">
+          <div class="transform-item-icon transform-item-icon--with">✓</div>
+          <span>Family legacy defined, documented, and activated</span>
+        </div>
+        <div class="transform-item transform-item--with">
+          <div class="transform-item-icon transform-item-icon--with">✓</div>
+          <span>Exit strategy designed years in advance for maximum value</span>
+        </div>
+        <div class="transform-item transform-item--with">
+          <div class="transform-item-icon transform-item-icon--with">✓</div>
+          <span>Purpose clarified and pursued — starting now</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="result-strip">
+    <p>Protection.<span>·</span>Peace.<span>·</span>Purpose.<span>—</span>Always.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     THREE PILLARS
+══════════════════════════════════════════════════════════ -->
+<section id="pillars" class="section-pad">
+  <div class="container">
+    <div class="pillars-header">
+      <div class="eyebrow">The Foundation</div>
+      <h2>Three Pillars. One Operating System.</h2>
+      <p>Every element of ARK Academy is built on three interlocking pillars — the architecture of a life fully lived and a legacy fully built.</p>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-number">Pillar 01</div>
+        <div class="pillar-title">Leadership</div>
+        <p class="pillar-desc">The journey begins with you. We develop the mindset, identity, and decision-making frameworks that allow you to lead your family and your enterprise with clarity and conviction. You cannot build a great system without a great leader at the center.</p>
+        <div class="pillar-chips">
+          <span class="tag-chip">Mindset</span>
+          <span class="tag-chip">Identity</span>
+          <span class="tag-chip">Vision</span>
+          <span class="tag-chip">Decision Frameworks</span>
+          <span class="tag-chip">Legacy Thinking</span>
+        </div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-number">Pillar 02</div>
+        <div class="pillar-title">Strategy</div>
+        <p class="pillar-desc">Strategy is the bridge between where you are and where you are meant to be. We build integrated financial, legal, tax, and estate strategies that work in concert — not in isolation — to protect and grow what you have built.</p>
+        <div class="pillar-chips">
+          <span class="tag-chip">Tax Strategy</span>
+          <span class="tag-chip">Estate Planning</span>
+          <span class="tag-chip">Asset Protection</span>
+          <span class="tag-chip">Exit Planning</span>
+          <span class="tag-chip">Wealth Architecture</span>
+        </div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-number">Pillar 03</div>
+        <div class="pillar-title">Execution</div>
+        <p class="pillar-desc">Vision without execution is merely a dream. We provide the playbooks, accountability structures, and operating cadences that transform strategy into measurable progress — quarter by quarter, year by year.</p>
+        <div class="pillar-chips">
+          <span class="tag-chip">Playbooks</span>
+          <span class="tag-chip">Accountability</span>
+          <span class="tag-chip">Quarterly Reviews</span>
+          <span class="tag-chip">KPIs</span>
+          <span class="tag-chip">Operating Cadence</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     PLAYBOOKS
+══════════════════════════════════════════════════════════ -->
+<section id="playbooks" class="section-pad">
+  <div class="container">
+    <div class="playbooks-header">
+      <div class="eyebrow">The System</div>
+      <h2>9+ Proven Playbooks.</h2>
+      <p>Each playbook is a battle-tested framework built for entrepreneurs navigating the complexity of wealth, family, and legacy. Together, they form your complete operating system.</p>
+    </div>
+    <div class="playbooks-grid">
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 01</div>
+        <div class="playbook-name">The Family Office Blueprint</div>
+        <div class="playbook-desc">Architect your personal family office structure — the command center for all financial, legal, and legacy decisions.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 02</div>
+        <div class="playbook-name">The Protection Stack</div>
+        <div class="playbook-desc">Layer asset protection, insurance architecture, and legal structures to shield your wealth from every foreseeable risk.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 03</div>
+        <div class="playbook-name">The Tax Minimization System</div>
+        <div class="playbook-desc">Deploy proactive, legal tax strategies that keep more of what you earn — before, during, and after a liquidity event.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 04</div>
+        <div class="playbook-name">The Exit Architect</div>
+        <div class="playbook-desc">Design your exit years in advance. Maximize enterprise value, minimize tax drag, and ensure a transition on your terms.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 05</div>
+        <div class="playbook-name">The Estate & Legacy Plan</div>
+        <div class="playbook-desc">Build a multi-generational estate plan that transfers wealth, values, and vision to the people and causes that matter most.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 06</div>
+        <div class="playbook-name">The Investment Policy Statement</div>
+        <div class="playbook-desc">Define your investment philosophy, risk tolerance, and allocation strategy — a governing document for your portfolio.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 07</div>
+        <div class="playbook-name">The Family Governance Charter</div>
+        <div class="playbook-desc">Establish the rules, roles, and rituals that keep your family aligned, communicating, and moving toward shared Purpose.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 08</div>
+        <div class="playbook-name">The Philanthropic Strategy</div>
+        <div class="playbook-desc">Turn generosity into a strategic advantage — structuring giving vehicles that amplify impact and optimize your tax position.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 09</div>
+        <div class="playbook-name">The Purpose Manifesto</div>
+        <div class="playbook-desc">Articulate your personal mission, family values, and legacy vision — the north star that guides every decision in the system.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     OUR PROMISE
+══════════════════════════════════════════════════════════ -->
+<section id="promise" class="section-pad">
+  <div class="container">
+    <div class="promise-header">
+      <div class="eyebrow eyebrow--light">Our Commitment</div>
+      <h2>Our Promise to You.</h2>
+      <p>Every engagement, every conversation, every playbook is oriented around three non-negotiable outcomes. This is what we build. This is what we deliver.</p>
+    </div>
+    <div class="promise-grid">
+      <div class="promise-card">
+        <div class="promise-icon">🛡</div>
+        <div class="promise-title">Protection</div>
+        <p class="promise-desc">We build structures that guard your wealth, your family, and your enterprise against every foreseeable threat — legal, financial, and relational. What you have built will not be lost.</p>
+      </div>
+      <div class="promise-card">
+        <div class="promise-icon">☮</div>
+        <div class="promise-title">Peace</div>
+        <p class="promise-desc">We replace the weight of uncertainty with the confidence of a complete system. When every advisor is coordinated and every plan is integrated, Peace is not a luxury — it is the natural result.</p>
+      </div>
+      <div class="promise-card">
+        <div class="promise-icon">🧭</div>
+        <div class="promise-title">Purpose</div>
+        <p class="promise-desc">We help you move beyond the accumulation of wealth toward the articulation of meaning. Purpose is not found after the exit — it is built into the journey, one intentional decision at a time.</p>
+      </div>
+    </div>
+    <div class="promise-footnote">
+      "We are not your advisors. We are your Sherpa — the guide who has walked this path before, who carries the weight alongside you, and who will not leave you on the mountain."
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     PRICING
+══════════════════════════════════════════════════════════ -->
+<section id="pricing" class="section-pad">
+  <div class="container">
+    <div class="pricing-header">
+      <div class="eyebrow">Membership Tiers</div>
+      <h2>Choose Your Journey.</h2>
+      <p>Every tier is designed to meet you where you are and guide you toward where you are meant to be. Select the level of engagement that matches your season.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <!-- Builder -->
+      <div class="pricing-card pricing-card--featured">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-tier">Tier 01</div>
+        <div class="pricing-name">Builder</div>
+        <div class="pricing-price">
+          <span class="pricing-price-main">$497</span>
+          <span class="pricing-price-period">/month</span>
+        </div>
+        <div class="pricing-setup">No setup fee · Start immediately</div>
+        <div class="pricing-features">
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Full access to all 9+ Playbooks</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Family Office Operating System framework</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Monthly group coaching calls</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Private member community access</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Quarterly system review templates</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Protection, Peace &amp; Purpose curriculum</span></div>
+        </div>
+        <button class="pricing-cta pricing-cta--featured">Apply for Builder</button>
+      </div>
+
+      <!-- Navigator -->
+      <div class="pricing-card">
+        <div class="pricing-tier">Tier 02</div>
+        <div class="pricing-name">Navigator</div>
+        <div class="pricing-price">
+          <span class="pricing-price-main">$1,197</span>
+          <span class="pricing-price-period">/month</span>
+        </div>
+        <div class="pricing-setup">$3,000 onboarding investment</div>
+        <div class="pricing-features">
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Everything in Builder</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Bi-monthly 1:1 strategy sessions</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Personalized Family Office Blueprint</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Advisor coordination support</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Custom Protection Stack review</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Annual legacy planning session</span></div>
+        </div>
+        <button class="pricing-cta pricing-cta--default">Apply for Navigator</button>
+      </div>
+
+      <!-- Navigator+ -->
+      <div class="pricing-card">
+        <div class="pricing-tier">Tier 03</div>
+        <div class="pricing-name">Navigator+</div>
+        <div class="pricing-price">
+          <span class="pricing-price-main">$3,000</span>
+          <span class="pricing-price-period">/month</span>
+        </div>
+        <div class="pricing-setup">$10,000 onboarding investment</div>
+        <div class="pricing-features">
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Everything in Navigator</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Weekly 1:1 Sherpa sessions</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Full advisor team coordination</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Exit planning &amp; M&amp;A readiness</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Family Governance Charter build</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Philanthropic strategy design</span></div>
+        </div>
+        <button class="pricing-cta pricing-cta--default">Apply for Navigator+</button>
+      </div>
+
+      <!-- Family Office -->
+      <div class="pricing-card">
+        <div class="pricing-tier">Tier 04</div>
+        <div class="pricing-name">Family Office</div>
+        <div class="pricing-price">
+          <span class="pricing-price-main">$5,000</span>
+          <span class="pricing-price-period">/month</span>
+        </div>
+        <div class="pricing-setup">$25,000 onboarding investment</div>
+        <div class="pricing-features">
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Everything in Navigator+</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Dedicated Family Office Sherpa</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Full operating system implementation</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Multi-generational estate architecture</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Board-level family governance</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span><span>Priority access &amp; concierge support</span></div>
+        </div>
+        <button class="pricing-cta pricing-cta--default">Apply for Family Office</button>
+      </div>
+
+    </div>
+    <p class="pricing-note">All memberships are application-based. We work with a limited number of families at each tier to ensure the depth of engagement you deserve.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     ABOUT
+══════════════════════════════════════════════════════════ -->
+<section id="about" class="section-pad">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-left">
+        <div class="eyebrow">Who We Are</div>
+        <h2>Your Sherpa for the Journey Ahead.</h2>
+        <p class="about-body">ARK Academy was built for the entrepreneur who has achieved success but senses there is something more — a deeper level of integration, intention, and impact waiting on the other side of the right system.</p>
+        <p class="about-body">We are not advisors. We are Sherpas. A Sherpa does not carry you up the mountain — they walk beside you, carry the weight of the system, and ensure you arrive at the summit with everything you need. We bring the map, the tools, and the wisdom of those who have made this climb before.</p>
+        <p class="about-body">Our work is grounded in Biblical principles of stewardship, generosity, and legacy — the conviction that wealth is not an end in itself, but a resource entrusted to those who will use it with wisdom and purpose.</p>
+        <div class="about-values">
+          <span class="about-value-tag">⚓ Stewardship</span>
+          <span class="about-value-tag">✦ Integrity</span>
+          <span class="about-value-tag">🌿 Legacy</span>
+          <span class="about-value-tag">🙏 Biblical Values</span>
+          <span class="about-value-tag">🧭 Purpose-Driven</span>
+        </div>
+      </div>
+      <div class="about-stats">
+        <div class="about-stat-card">
+          <div class="about-stat-number">3</div>
+          <div class="about-stat-label">Core Pillars guiding every engagement</div>
+        </div>
+        <div class="about-stat-card">
+          <div class="about-stat-number">9+</div>
+          <div class="about-stat-label">Proven Playbooks in the system</div>
+        </div>
+        <div class="about-stat-card">
+          <div class="about-stat-number">100%</div>
+          <div class="about-stat-label">Application-based — we choose who we serve</div>
+        </div>
+        <div class="about-stat-card">
+          <div class="about-stat-number">1</div>
+          <div class="about-stat-label">Integrated operating system for your entire family</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CTA SECTION
+══════════════════════════════════════════════════════════ -->
+<section id="cta-section" class="section-pad">
+  <div class="container">
+    <div class="cta-header">
+      <div class="eyebrow eyebrow--light">Begin the Journey</div>
+      <h2>Four Steps to Your Family Office Operating System.</h2>
+      <p>Our onboarding process is designed to be thorough, intentional, and efficient. We do not rush the foundation — because everything is built on it.</p>
+    </div>
+    <div class="onboarding-steps">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-title">Apply</div>
+        <p class="step-desc">Submit your application and tell us about your family, your enterprise, and where you are in your journey. We review every application personally.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-title">Discovery Call</div>
+        <p class="step-desc">We schedule a 60-minute discovery conversation to understand your goals, your gaps, and the right tier of engagement for your season.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-title">System Design</div>
+        <p class="step-desc">Your Sherpa builds a customized operating system plan — mapping your playbooks, advisor coordination strategy, and 90-day launch roadmap.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div class="step-title">Launch</div>
+        <p class="step-desc">We activate your Family Office Operating System. The journey from pain to purpose begins — with a guide beside you every step of the way.</p>
+      </div>
+    </div>
+    <div class="cta-bottom">
+      <a href="#" class="btn btn-white" style="font-size:16px; padding:18px 48px;">Apply Now — Begin Your Journey</a>
+      <p>Applications are reviewed within 48 hours. Membership is limited by design.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════ -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">ARK Academy</div>
+        <div class="footer-brand-sub">Family Office Operating System</div>
+        <p class="footer-brand-desc">We guide entrepreneurs and their families on the journey from pain to purpose — building the systems, strategies, and clarity needed to protect what matters, find Peace in the process, and live with Purpose beyond the exit.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">The System</div>
+        <ul class="footer-links">
+          <li><a href="#pillars">Three Pillars</a></li>
+          <li><a href="#playbooks">Playbooks</a></li>
+          <li><a href="#promise">Our Promise</a></li>
+          <li><a href="#transformation">Transformation</a></li>
+          <li><a href="#about">About ARK</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Membership</div>
+        <ul class="footer-links">
+          <li><a href="#pricing">Builder — $497/mo</a></li>
+          <li><a href="#pricing">Navigator — $1,197/mo</a></li>
+          <li><a href="#pricing">Navigator+ — $3,000/mo</a></li>
+          <li><a href="#pricing">Family Office — $5,000/mo</a></li>
+          <li><a href="#cta-section">Apply Now</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-tagline">Plan Smarter. Think Bigger. Live Abundantly.</div>
+      <div class="footer-copy">&copy; 2026 ARK Academy. All rights reserved. Family Office Operating System&trade;</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
