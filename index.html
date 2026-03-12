@@ -514,6 +514,46 @@
       line-height: 1.6;
     }
 
+    /* ─── PLAYBOOK SERIES ────────────────────────────────────── */
+    .playbook-series-label {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .playbook-series-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 40px;
+      white-space: nowrap;
+    }
+    .playbook-series-badge--advanced {
+      background: var(--secondary);
+    }
+    .playbook-series-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 0;
+      max-width: 640px;
+    }
+    .playbook-card--foundation {
+      border-left-color: var(--accent);
+      background: #faf8f4;
+      border-left-width: 4px;
+    }
+    .playbook-card--foundation .playbook-num {
+      color: var(--accent);
+    }
+    .playbook-card--foundation:hover { background: #f0ebe0; }
+
     /* ─── OUR PROMISE ───────────────────────────────────────── */
     #promise {
       background: var(--primary);
@@ -934,7 +974,7 @@
           <div class="hero-stat-label">Core Pillars</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-number">9+</div>
+          <div class="hero-stat-number">18</div>
           <div class="hero-stat-label">Proven Playbooks</div>
         </div>
         <div class="hero-stat">
@@ -1127,54 +1167,113 @@
   <div class="container">
     <div class="playbooks-header">
       <div class="eyebrow">The System</div>
-      <h2>9+ Proven Playbooks.</h2>
-      <p>Each playbook is a battle-tested framework built for entrepreneurs navigating the complexity of wealth, family, and legacy. Together, they form your complete operating system.</p>
+      <h2>18 Proven Playbooks.</h2>
+      <p>Each playbook is a battle-tested framework built for entrepreneurs navigating the complexity of wealth, family, and legacy. Together, they form your complete operating system — beginning with the six foundational playbooks every family office must have.</p>
+    </div>
+
+    <!-- Foundation Series -->
+    <div class="playbook-series-label">
+      <div class="playbook-series-badge">Foundation Series</div>
+      <p class="playbook-series-desc">The six essential playbooks that establish the bedrock of your Family Office Operating System. Every engagement begins here.</p>
+    </div>
+    <div class="playbooks-grid playbooks-grid--foundation" style="margin-bottom:56px;">
+      <div class="playbook-card playbook-card--foundation">
+        <div class="playbook-num">Playbook 01 · Foundation</div>
+        <div class="playbook-name">Organization Playbook</div>
+        <div class="playbook-desc">Building the Foundation of Your Family Office — establish the structure, roles, and governance framework that makes everything else possible.</div>
+      </div>
+      <div class="playbook-card playbook-card--foundation">
+        <div class="playbook-num">Playbook 02 · Foundation</div>
+        <div class="playbook-name">Vision Playbook</div>
+        <div class="playbook-desc">Building the Future You Want — define your personal and family vision, values, and the north star that guides every strategic decision.</div>
+      </div>
+      <div class="playbook-card playbook-card--foundation">
+        <div class="playbook-num">Playbook 03 · Foundation</div>
+        <div class="playbook-name">Cash Flow Playbook</div>
+        <div class="playbook-desc">Building Your Cash Flow Engine — architect the systems that ensure capital moves efficiently, predictably, and in alignment with your goals.</div>
+      </div>
+      <div class="playbook-card playbook-card--foundation">
+        <div class="playbook-num">Playbook 04 · Foundation</div>
+        <div class="playbook-name">Tax Compliance Playbook</div>
+        <div class="playbook-desc">Building the Tax Playbook — establish a proactive, fully documented tax compliance framework that eliminates surprises and reduces exposure.</div>
+      </div>
+      <div class="playbook-card playbook-card--foundation">
+        <div class="playbook-num">Playbook 05 · Foundation</div>
+        <div class="playbook-name">Tax Optimization Playbook</div>
+        <div class="playbook-desc">Move beyond compliance into strategy — deploy legal tax optimization structures that keep significantly more of what you earn across every season.</div>
+      </div>
+      <div class="playbook-card playbook-card--foundation">
+        <div class="playbook-num">Playbook 06 · Foundation</div>
+        <div class="playbook-name">Financial Planning Playbook</div>
+        <div class="playbook-desc">Building the Financial Blueprint — create a comprehensive, integrated financial plan that connects your wealth to your vision and your legacy.</div>
+      </div>
+    </div>
+
+    <!-- Advanced Playbooks -->
+    <div class="playbook-series-label">
+      <div class="playbook-series-badge playbook-series-badge--advanced">Advanced Series</div>
+      <p class="playbook-series-desc">Twelve specialized playbooks that extend and protect every dimension of your family office — from legal architecture to business succession and beyond.</p>
     </div>
     <div class="playbooks-grid">
       <div class="playbook-card">
-        <div class="playbook-num">Playbook 01</div>
-        <div class="playbook-name">The Family Office Blueprint</div>
-        <div class="playbook-desc">Architect your personal family office structure — the command center for all financial, legal, and legacy decisions.</div>
-      </div>
-      <div class="playbook-card">
-        <div class="playbook-num">Playbook 02</div>
-        <div class="playbook-name">The Protection Stack</div>
-        <div class="playbook-desc">Layer asset protection, insurance architecture, and legal structures to shield your wealth from every foreseeable risk.</div>
-      </div>
-      <div class="playbook-card">
-        <div class="playbook-num">Playbook 03</div>
-        <div class="playbook-name">The Tax Minimization System</div>
-        <div class="playbook-desc">Deploy proactive, legal tax strategies that keep more of what you earn — before, during, and after a liquidity event.</div>
-      </div>
-      <div class="playbook-card">
-        <div class="playbook-num">Playbook 04</div>
-        <div class="playbook-name">The Exit Architect</div>
-        <div class="playbook-desc">Design your exit years in advance. Maximize enterprise value, minimize tax drag, and ensure a transition on your terms.</div>
-      </div>
-      <div class="playbook-card">
-        <div class="playbook-num">Playbook 05</div>
-        <div class="playbook-name">The Estate & Legacy Plan</div>
-        <div class="playbook-desc">Build a multi-generational estate plan that transfers wealth, values, and vision to the people and causes that matter most.</div>
-      </div>
-      <div class="playbook-card">
-        <div class="playbook-num">Playbook 06</div>
-        <div class="playbook-name">The Investment Policy Statement</div>
-        <div class="playbook-desc">Define your investment philosophy, risk tolerance, and allocation strategy — a governing document for your portfolio.</div>
-      </div>
-      <div class="playbook-card">
         <div class="playbook-num">Playbook 07</div>
-        <div class="playbook-name">The Family Governance Charter</div>
-        <div class="playbook-desc">Establish the rules, roles, and rituals that keep your family aligned, communicating, and moving toward shared Purpose.</div>
+        <div class="playbook-name">Legal Playbook</div>
+        <div class="playbook-desc">Build the legal architecture that protects your enterprise, your assets, and your family — with every structure designed to work in concert.</div>
       </div>
       <div class="playbook-card">
         <div class="playbook-num">Playbook 08</div>
-        <div class="playbook-name">The Philanthropic Strategy</div>
-        <div class="playbook-desc">Turn generosity into a strategic advantage — structuring giving vehicles that amplify impact and optimize your tax position.</div>
+        <div class="playbook-name">Risk Management Playbook</div>
+        <div class="playbook-desc">The How's and What's of Protection — identify, quantify, and systematically mitigate every foreseeable risk to your wealth and enterprise.</div>
       </div>
       <div class="playbook-card">
         <div class="playbook-num">Playbook 09</div>
-        <div class="playbook-name">The Purpose Manifesto</div>
-        <div class="playbook-desc">Articulate your personal mission, family values, and legacy vision — the north star that guides every decision in the system.</div>
+        <div class="playbook-name">Security Playbook</div>
+        <div class="playbook-desc">Building the Cyber &amp; Personal Fence Around Your Family — establish comprehensive digital and physical security protocols for your family and assets.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 10</div>
+        <div class="playbook-name">Investment Advisory Playbook</div>
+        <div class="playbook-desc">Building the Investment Strategy — define your investment philosophy, asset allocation, and advisor governance framework for long-term wealth growth.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 11</div>
+        <div class="playbook-name">Estate Planning Playbook</div>
+        <div class="playbook-desc">Building the Protection Strategy — architect a multi-generational estate plan that transfers wealth, values, and vision with precision and intention.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 12</div>
+        <div class="playbook-name">Business Continuity Planning Playbook</div>
+        <div class="playbook-desc">Ensure your enterprise survives and thrives through any disruption — with documented continuity plans that protect operations, people, and value.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 13</div>
+        <div class="playbook-name">Catastrophe Planning Playbook</div>
+        <div class="playbook-desc">Prepare for the unthinkable — build response frameworks for catastrophic events that protect your family, your assets, and your enterprise legacy.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 14</div>
+        <div class="playbook-name">Business Succession Planning Playbook</div>
+        <div class="playbook-desc">Design the transition of your enterprise to the next generation or new leadership — preserving value, culture, and continuity on your terms.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 15</div>
+        <div class="playbook-name">Philanthropy Playbook</div>
+        <div class="playbook-desc">Transform generosity into a strategic pillar — structuring giving vehicles that amplify impact, reflect your values, and optimize your tax position.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 16</div>
+        <div class="playbook-name">Family Governance Playbook</div>
+        <div class="playbook-desc">Establish the rules, roles, and rituals that keep your family aligned, communicating, and moving together toward shared Purpose across generations.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 17</div>
+        <div class="playbook-name">M&amp;A Playbook</div>
+        <div class="playbook-desc">Preparing to Buy, Sell or Exit — a comprehensive framework for navigating mergers, acquisitions, and exit events with maximum value and minimal friction.</div>
+      </div>
+      <div class="playbook-card">
+        <div class="playbook-num">Playbook 18</div>
+        <div class="playbook-name">Maintenance Playbook</div>
+        <div class="playbook-desc">Now that you've built it, maintain it — the operating cadence, review cycles, and accountability structures that keep your system performing at its peak.</div>
       </div>
     </div>
   </div>
