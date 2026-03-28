@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop Fix Academy Pro — ARK Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary:   #133B54;
+      --secondary: #386FA4;
+      --accent:    #A98A5E;
+      --white:     #FFFFFF;
+      --light:     #F4F4F0;
+      --text-dark: #1A1A1A;
+      --text-mid:  #444444;
+      --text-muted:#6B6B6B;
+      --radius:    8px;
+      --radius-lg: 16px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      color: var(--text-dark);
+      background: var(--light);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+    }
+
+    .lead-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 8px 32px rgba(19,59,84,0.08);
+      max-width: 520px;
+      width: 100%;
+      padding: 48px 40px;
+    }
+
+    .lead-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .lead-brand {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .lead-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .lead-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #475569;
+      margin-bottom: 6px;
+    }
+
+    .form-required {
+      color: var(--accent);
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--text-dark);
+      background: var(--white);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(169,138,94,0.1);
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: #94a3b8;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* Tier radio buttons */
+    .tier-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tier-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .tier-option:hover {
+      border-color: #cbd5e1;
+    }
+
+    .tier-option.selected {
+      border-color: var(--accent);
+      background: rgba(169,138,94,0.05);
+    }
+
+    .tier-option input[type="radio"] {
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .tier-label-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: #334155;
+    }
+
+    .tier-sublabel {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-left: 8px;
+    }
+
+    .btn-submit {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: var(--radius);
+      background: var(--accent);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      margin-top: 28px;
+    }
+
+    .btn-submit:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .success-message {
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .success-message h3 {
+      font-size: 22px;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .success-message p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    .error-message {
+      background: #fef2f2;
+      color: #991b1b;
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 560px) {
+      .lead-card {
+        padding: 36px 24px;
+      }
+      .lead-title {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="lead-card">
+  <!-- Header -->
+  <div class="lead-header">
+    <div class="lead-brand">ARK Academy</div>
+    <h1 class="lead-title">Shop Fix Academy Pro</h1>
+    <p class="lead-subtitle">Save your spot — Financial Fix session today at 1 PM. Fill this out and we'll follow up with everything you need.</p>
+  </div>
+
+  <!-- Form -->
+  <form id="leadForm">
+    <!-- Name -->
+    <div class="form-group">
+      <label class="form-label" for="name">Name <span class="form-required">*</span></label>
+      <input class="form-input" type="text" id="name" name="name" required placeholder="Your full name" />
+    </div>
+
+    <!-- Phone -->
+    <div class="form-group">
+      <label class="form-label" for="phone">Phone Number <span class="form-required">*</span></label>
+      <input class="form-input" type="tel" id="phone" name="phone" required placeholder="(555) 123-4567" />
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label class="form-label" for="email">Email <span class="form-required">*</span></label>
+      <input class="form-input" type="email" id="email" name="email" required placeholder="you@example.com" />
+    </div>
+
+    <!-- Tier Interest (radio buttons) -->
+    <div class="form-group">
+      <label class="form-label">I'm interested in: <span class="form-required">*</span></label>
+      <div class="tier-group">
+        <label class="tier-option" id="tier-builder">
+          <input type="radio" name="tier" value="Builder" required />
+          <div>
+            <span class="tier-label-text">Builder</span>
+            <span class="tier-sublabel">$497/month</span>
+          </div>
+        </label>
+        <label class="tier-option" id="tier-navigator">
+          <input type="radio" name="tier" value="Navigator" />
+          <div>
+            <span class="tier-label-text">Navigator</span>
+            <span class="tier-sublabel">$3,000 upfront + $1,197/month</span>
+          </div>
+        </label>
+        <label class="tier-option" id="tier-navigator-plus">
+          <input type="radio" name="tier" value="Navigator Plus" />
+          <div>
+            <span class="tier-label-text">Navigator Plus</span>
+            <span class="tier-sublabel">$10,000 upfront + $3,000/month</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="form-group">
+      <label class="form-label" for="notes">Notes (optional)</label>
+      <textarea class="form-textarea" id="notes" name="notes" rows="3" placeholder="Shop name, biggest challenge, anything else we should know..."></textarea>
+    </div>
+
+    <!-- Error message (hidden by default) -->
+    <div class="error-message" id="errorMsg" style="display:none;"></div>
+
+    <!-- Submit -->
+    <button type="submit" class="btn-submit" id="submitBtn">Save My Spot</button>
+  </form>
+
+  <!-- Success (hidden by default) -->
+  <div class="success-message" id="successMsg" style="display:none;">
+    <h3>You're all set!</h3>
+    <p>We'll follow up with everything you need before the session.</p>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('leadForm');
+  const errorMsg = document.getElementById('errorMsg');
+  const successMsg = document.getElementById('successMsg');
+  const submitBtn = document.getElementById('submitBtn');
+
+  // Highlight selected tier option
+  document.querySelectorAll('.tier-option input[type="radio"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      document.querySelectorAll('.tier-option').forEach(opt => opt.classList.remove('selected'));
+      radio.closest('.tier-option').classList.add('selected');
+    });
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorMsg.style.display = 'none';
+
+    const formData = {
+      name: document.getElementById('name').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      tier: document.querySelector('input[name="tier"]:checked')?.value || '',
+      notes: document.getElementById('notes').value.trim(),
+    };
+
+    // Validate required fields
+    if (!formData.name || !formData.phone || !formData.email || !formData.tier) {
+      errorMsg.textContent = 'Please fill in all required fields.';
+      errorMsg.style.display = 'block';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+
+    try {
+      const response = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) throw new Error('Submission failed');
+
+      form.style.display = 'none';
+      successMsg.style.display = 'block';
+    } catch (err) {
+      errorMsg.textContent = 'Something went wrong. Please try again.';
+      errorMsg.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Save My Spot';
+    }
+  });
+</script>
+
+</body>
+</html>
