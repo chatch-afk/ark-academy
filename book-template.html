@@ -144,12 +144,13 @@
    namespace:  any unique string per page (no spaces)
 ──────────────────────────────────────────────────────────────── */
 const CAL = {
-  calLink: 'your-team-handle',
+  origin:   'https://cal.com',      // ← your Cal.com Org domain, e.g. 'https://arkfinancial.cal.com' or 'https://book.yourbrand.com'
+  calLink:  'team/your-team-handle',// ← path on that domain, e.g. 'team/para-transform'
   brandColor: '#C96E4A',
   namespace: 'brandbooking'
 };
 
-document.getElementById('cal-fallback-link').href = 'https://cal.com/' + CAL.calLink;
+document.getElementById('cal-fallback-link').href = CAL.origin.replace(/\/$/, '') + '/' + CAL.calLink;
 
 (function (C, A, L) {
   let p = function (a, ar) { a.q.push(ar); };
@@ -168,7 +169,7 @@ document.getElementById('cal-fallback-link').href = 'https://cal.com/' + CAL.cal
   };
 })(window, "https://app.cal.com/embed/embed.js", "init");
 
-Cal("init", CAL.namespace, { origin: "https://cal.com" });
+Cal("init", CAL.namespace, { origin: CAL.origin });
 Cal.ns[CAL.namespace]("inline", { elementOrSelector: "#cal-inline", config: { layout: "month_view" }, calLink: CAL.calLink });
 Cal.ns[CAL.namespace]("ui", { hideEventTypeDetails: false, layout: "month_view", cssVarsPerTheme: { light: { "cal-brand": CAL.brandColor } } });
 Cal.ns[CAL.namespace]("on", { action: "linkReady", callback: function () { var l = document.getElementById('cal-loading'); if (l) l.style.display = 'none'; } });

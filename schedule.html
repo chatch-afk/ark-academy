@@ -134,13 +134,17 @@
    brandColor: hex used to theme the embedded scheduler.
 ══════════════════════════════════════════════════════════════ */
 const CAL = {
-  calLink: 'team/ark-academy',     // ← your Cal.com team page (shows all 4 ARK events). Or 'team/ark-academy/discovery-call' for one.
+  // origin = your Cal.com Organization domain. Org accounts use a subdomain
+  // (e.g. 'https://arkfinancial.cal.com') or your custom domain
+  // (e.g. 'https://book.arkacademy.com'). Plain accounts use 'https://cal.com'.
+  origin:   'https://cal.com',     // ← set to your org domain
+  calLink:  'team/ark-academy',    // ← path on that domain (shows all 4 ARK events). Or '.../discovery-call' for one.
   brandColor: '#A98A5E',           // ARK Academy gold
   namespace: 'arkacademy'
 };
 
 // Fallback "open in new tab" link
-document.getElementById('cal-fallback-link').href = 'https://cal.com/' + CAL.calLink;
+document.getElementById('cal-fallback-link').href = CAL.origin.replace(/\/$/, '') + '/' + CAL.calLink;
 
 (function (C, A, L) {
   let p = function (a, ar) { a.q.push(ar); };
@@ -159,7 +163,7 @@ document.getElementById('cal-fallback-link').href = 'https://cal.com/' + CAL.cal
   };
 })(window, "https://app.cal.com/embed/embed.js", "init");
 
-Cal("init", CAL.namespace, { origin: "https://cal.com" });
+Cal("init", CAL.namespace, { origin: CAL.origin });
 
 Cal.ns[CAL.namespace]("inline", {
   elementOrSelector: "#cal-inline",
