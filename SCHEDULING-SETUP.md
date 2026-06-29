@@ -1,114 +1,124 @@
-# Scheduling Setup — 3 Brands, 1 Calendar (Cal.com)
+# Scheduling Setup — 3 Brands, 12 Events, 1 Calendar (Cal.com + Microsoft 365)
 
-This is the plan for branded booking links for **ARK Academy**, **Para Transform**, and
-**Untamed Marriage** that all feed a **single calendar** on your end. Each brand gets its
-own branded page; Cal.com checks your one calendar so no two brands can double-book the
-same slot, and every booking lands on that calendar automatically.
+**Goal:** branded booking links for **ARK Academy**, **Para Transform**, and **Untamed
+Marriage**, each offering the same 4 meetings, with **every booking landing on one calendar —
+`chatch@arkfinancial.com` (Microsoft 365 / Outlook)**. Because all three share that one
+connected calendar, no two brands can ever double-book the same slot.
 
 The website side is already built:
 
 | File | Brand | What it is |
 |------|-------|------------|
-| `schedule.html` | ARK Academy | Branded page with the Cal.com scheduler embedded |
+| `schedule.html` | ARK Academy | Branded page with the Cal.com scheduler embedded (in this repo) |
 | `book-template.html` | Para Transform / Untamed Marriage | Copy-paste template for the other brands' sites |
 
-You only need to (1) set up Cal.com once and (2) paste your real Cal.com handle into the
-config block of each page.
+You do the Cal.com setup once (below), paste each brand's handle into the page config, done.
 
 ---
 
-## Part 1 — Cal.com account (one-time, ~15 min)
+## The 12 event types (4 per brand)
 
-1. **Create one account** at https://cal.com (the *same* account powers all three brands).
-2. **Connect your single calendar** — this is the only step that differs by provider:
-   - **Google Workspace:** Settings → *Apps* / *Calendars* → **Connect Google Calendar** → sign in → allow.
-   - **Microsoft 365:** Settings → *Calendars* → **Connect Outlook/Office 365 Calendar** → sign in → allow.
-   - Make sure this connected calendar is set as both the **"check for conflicts"** and the
-     **"add bookings to"** calendar. That's what makes all brands share one calendar.
-3. **Set your availability** (e.g. Mon–Fri 9–5). You can create multiple schedules later if
-   a brand needs different hours.
+| Service | Duration | Suggested slug | Audience |
+|---|---|---|---|
+| Quick Intro | 15 min | `quick-intro` | First-touch / fit check |
+| Call | 30 min | `call` | General conversation |
+| Client Call | 60 min | `client-call` | Existing clients |
+| Discovery Call | 60 min | `discovery-call` | Prospects (deeper) |
 
-## Part 2 — One team per brand (gives each its own branded link)
+Create these **4 under each team** (12 total). The two 60-min events are distinguished by
+name + description; that's fine.
 
-For **each** brand (ARK Academy, Para Transform, Untamed Marriage):
+---
 
-1. **Create a Team** (Teams → *New*). Name it for the brand. This gives you a clean URL:
-   `cal.com/ark-academy`, `cal.com/para-transform`, `cal.com/untamed-marriage`.
-2. In the team's **Appearance/Branding**, set the **logo**, **brand color**, and bio for
-   that brand.
-3. Add yourself as the team member so bookings flow to your connected calendar.
-4. **Create the event types** for that brand (e.g. *Discovery Call · 60 min*,
-   *Quick Intro · 15 min*). These show up at `cal.com/<team>/<event>`.
+## Part 1 — Cal.com account + connect your ONE calendar (~5 min)
 
-> **Note on plans:** custom branding + custom domains are part of Cal.com's **Teams/Org**
-> paid tier (the free tier works but shows Cal.com branding and uses `cal.com/...` URLs).
-> Confirm current pricing at https://cal.com/pricing — it's modest per month.
+1. Create one account at https://cal.com (this single account powers all three brands).
+2. **Connect Microsoft 365:** Settings → **Calendars** → **Connect** → **Office 365 Calendar**
+   → sign in as `chatch@arkfinancial.com` → allow.
+3. Set that calendar as both:
+   - **"Check for conflicts"** (so your real Outlook events block availability), and
+   - **"Add to calendar"** (so new bookings appear on `chatch@arkfinancial.com`).
+   This is what makes all three brands feed your one ARK calendar.
+4. Set your default availability (e.g. Mon–Fri 9–5). You can vary it per brand later.
+5. (Recommended) Connect your video tool — **Microsoft Teams** or Zoom — under
+   *Apps*, so each booking auto-creates a meeting link.
 
-## Part 3 — Branded URLs on your own domains (optional, recommended)
+## Part 2 — One team per brand (gives each its own branded link) — ~5 min
 
-To make links read as your brand instead of `cal.com/...`:
+For **each** brand, repeat:
 
-- Easiest: link to a page on your own site (e.g. `arkacademy.com/schedule.html`) which embeds
-  Cal.com — **this is already what `schedule.html` does.**
-- Fuller: on the Organization tier, map a subdomain like `book.arkacademy.com` directly to the
-  Cal.com team page.
+1. **Teams → New team.** Name + slug:
+   - ARK Academy → `ark-academy` → `cal.com/team/ark-academy`
+   - Para Transform → `para-transform` → `cal.com/team/para-transform`
+   - Untamed Marriage → `untamed-marriage` → `cal.com/team/untamed-marriage`
+2. **Branding** (team → Appearance): upload that brand's **logo**, set its **brand color**,
+   and write the team bio.
+3. Make sure **you** are the team member, so bookings flow to your connected calendar.
+4. **Add the 4 event types** (from the table above). For each: set duration, a short
+   description, buffers if you want (e.g. 10-min after), and location = Microsoft Teams.
+
+> Repeat for all 3 teams → 12 event types total.
+
+## Part 3 — Plan / branding notes (read once)
+
+- **Per-brand logo + color in the booker + removing "Cal.com" branding** = Cal.com's
+  **Teams** plan. Confirm current price at https://cal.com/pricing (you're a single user, so
+  it's one seat).
+- **Branded URL on your own domain** is already handled for free by the embed: visitors land
+  on `arkacademy.com/schedule.html` (your domain, your wrapper). A *native* Cal subdomain like
+  `book.arkacademy.com` requires the **Organizations** tier — only get that if you specifically
+  want it; the embed makes it unnecessary.
 
 ---
 
 ## Part 4 — Wire each page to Cal.com (2 lines per page)
 
-### ARK Academy — `schedule.html`
-Open the file, find the `CAL` config block near the bottom, and set:
+### ARK Academy — `schedule.html` (this repo)
+Find the `CAL` config block near the bottom and set `calLink` to your real team handle:
 
 ```js
 const CAL = {
-  calLink: 'ark-academy',        // ← your real Cal.com team handle (or 'ark-academy/discovery-call')
-  brandColor: '#A98A5E',         // already ARK gold
+  calLink: 'team/ark-academy',   // shows all 4 ARK events; or 'team/ark-academy/discovery-call' for one
+  brandColor: '#A98A5E',         // ARK gold (already set)
   namespace: 'arkacademy'
 };
 ```
 
 ### Para Transform & Untamed Marriage — from `book-template.html`
-1. Copy `book-template.html` into that brand's site (rename to `schedule.html` or similar).
-2. Search the file for `[EDIT]` and update: title, colors (`:root`), nav logo, page copy, footer.
-3. Set its `CAL` block:
+1. Copy `book-template.html` into that brand's site (rename to `schedule.html`).
+2. Search for `[EDIT]` and update title, colors, logo, copy, footer.
+3. Set its `CAL` block, e.g.:
 
 ```js
 const CAL = {
-  calLink: 'para-transform',     // or 'untamed-marriage'
-  brandColor: '#C96E4A',         // that brand's accent
-  namespace: 'paratransform'     // any unique string
+  calLink: 'team/para-transform',   // or 'team/untamed-marriage'
+  brandColor: '#C96E4A',            // that brand's accent
+  namespace: 'paratransform'        // any unique string
 };
 ```
 
-That's it. `calLink` pointing at the **team handle** shows all of that brand's event types;
-pointing at `team/event` jumps straight into one meeting.
+> Note: a team booking page is usually `cal.com/team/<slug>`, so the embed `calLink` is
+> `team/<slug>`. If your account shows the team at `cal.com/<slug>` instead, drop the
+> `team/` prefix. Either way, the page's built-in fallback link will confirm the right URL.
 
 ---
 
 ## How "all feeds to 1 calendar" works
 
 ```
- ARK Academy page ─┐
- Para Transform  ─┼─►  Cal.com (your 1 connected calendar)
- Untamed Marriage ─┘       │
-                           ├─ reads busy/free  → no cross-brand double-booking
-                           └─ writes the event → shows on your calendar + sends invites
+ ARK Academy   (4 events) ─┐
+ Para Transform(4 events) ─┼─►  Cal.com  ──►  chatch@arkfinancial.com (Outlook)
+ Untamed Marriage (4)     ─┘        │
+                                    ├─ reads busy/free  → no cross-brand double-booking
+                                    └─ writes the event → shows on your ARK calendar + invites
 ```
 
-Because all three teams share the same connected calendar, a booking on any brand instantly
-removes that time from the other two.
-
----
-
 ## Quick test checklist
+- [ ] Open `schedule.html` — the ARK scheduler loads inside your branded page, showing 4 events.
+- [ ] Book a test slot → it appears on `chatch@arkfinancial.com` and you get an invite.
+- [ ] Open another brand's page → that same time is no longer offered (shared calendar works).
+- [ ] Confirm the Teams/Zoom link is attached and reminder emails look right.
 
-- [ ] Open `schedule.html` — the scheduler loads inside your branded page.
-- [ ] Book a test slot on ARK Academy → it appears on your calendar + you get an invite.
-- [ ] Open another brand's page → that same time slot is no longer offered.
-- [ ] Confirm reminder/confirmation emails look right (set sender name per team in Cal.com).
-
-## If the embed doesn't load
-The pages have a built-in fallback: if Cal.com is blocked (e.g. an ad-blocker), visitors see
-an **"Open booking page"** button that links straight to your Cal.com page, so you never lose
-a booking.
+## If the embed is ever blocked
+Each page has a built-in fallback: if Cal.com can't load (e.g. an ad-blocker), visitors see an
+**"Open booking"** button linking straight to your Cal.com page — so you never lose a booking.
